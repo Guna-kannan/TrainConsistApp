@@ -1,40 +1,31 @@
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 public class TrainConsistApp {
 
     public static void main(String[] args) {
 
-        System.out.println("UC2 Add Passenger Bogies to Train");
+        System.out.println("UC3 Track Unique Bogie IDs");
 
-        // Create ArrayList for passenger bogies
-        List<String> passengerBogies = new ArrayList<>();
+        // Create HashSet for bogie IDs
+        Set<String> bogieIds = new HashSet<>();
 
-        // Add bogies
-        passengerBogies.add("Sleeper");
-        passengerBogies.add("AC Chair");
-        passengerBogies.add("First Class");
+        // Add bogie IDs (including duplicates intentionally)
+        bogieIds.add("86104");
+        bogieIds.add("B6103");
+        bogieIds.add("B6102");
+        bogieIds.add("BG101");
+        bogieIds.add("B6103"); // duplicate
+        bogieIds.add("BG101"); // duplicate
 
-        // Display after adding
-        System.out.println("After Adding Bogies:");
-        System.out.println("Passenger Bogies: " + passengerBogies);
+        // Display bogie IDs
+        System.out.println("Bogie IDs After Insertion:");
+        System.out.println(bogieIds);
 
-        // Remove AC Chair
-        passengerBogies.remove("AC Chair");
+        // Note message
+        System.out.println("Note:");
+        System.out.println("Duplicates are automatically ignored by HashSet.");
 
-        // Display after removal
-        System.out.println("\nAfter Removing AC Chair:");
-        System.out.println("Passenger Bogies: " + passengerBogies);
-
-        // Check if Sleeper exists
-        System.out.println("\nChecking if 'Sleeper' exists:");
-        boolean exists = passengerBogies.contains("Sleeper");
-        System.out.println("Contains Sleeper?: " + exists);
-
-        // Final list
-        System.out.println("\nFinal Train Passenger Consist:");
-        System.out.println(passengerBogies);
-
-        System.out.println("\nUC2 operations completed successfully...");
+        System.out.println("UC3 uniqueness validation completed...");
     }
 }
