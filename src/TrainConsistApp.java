@@ -1,43 +1,49 @@
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
+import java.util.stream.*;
 
-public class TrainConsistApp {
+class Bogie {
+    private String name;
+    private int capacity;
 
+    public Bogie(String name, int capacity) {
+        this.name = name;
+        this.capacity = capacity;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public int getCapacity() {
+        return capacity;
+    }
+}
+
+public class Main {
     public static void main(String[] args) {
 
-        // Creating HashMap
-        HashMap<String, Integer> bogieCapacityMap = new HashMap<>();
+        System.out.println("======================================");
+        System.out.println("UC10 - Count Total Seats in Train");
+        System.out.println("======================================\n");
 
-        // Inserting predefined values (as per expected output)
-        bogieCapacityMap.put("First Class", 24);
-        bogieCapacityMap.put("Cargo", 120);
-        bogieCapacityMap.put("Sleeper", 72);
-        bogieCapacityMap.put("AC Chair", 56);
+        List<Bogie> bogies = new ArrayList<>();
 
-        // Displaying output
-        System.out.println("UC6 Map Bogie to Capacity (HashMap)");
-        System.out.println("Bogie Capacity Details:");
+        bogies.add(new Bogie("Sleeper", 72));
+        bogies.add(new Bogie("AC Chair", 56));
+        bogies.add(new Bogie("First Class", 24));
+        bogies.add(new Bogie("Sleeper", 70));
 
-        for (Map.Entry<String, Integer> entry : bogieCapacityMap.entrySet()) {
-
-            // Custom formatting to match your output style
-            if (entry.getKey().equals("First Class")) {
-                System.out.println(entry.getKey() + " " + entry.getValue());
-            }
-            else if (entry.getKey().equals("Cargo")) {
-                System.out.println(entry.getKey() + " ->");
-                System.out.println(entry.getValue());
-            }
-            else if (entry.getKey().equals("Sleeper")) {
-                System.out.println(entry.getKey() + " ->");
-                System.out.println(entry.getValue());
-            }
-            else if (entry.getKey().equals("AC Chair")) {
-                System.out.println(entry.getKey());
-                System.out.println(entry.getValue());
-            }
+        System.out.println("Bogies in Train:");
+        for (Bogie b : bogies) {
+            System.out.println(b.getName() + " -> " + b.getCapacity());
         }
 
-        System.out.println("UC6 bogie-capacity mapping completed...");
+        int total = bogies.stream()
+                .map(Bogie::getCapacity)
+                .reduce(0, Integer::sum);
+
+        System.out.println("\nTotal Seating Capacity of Train: " + total);
+
+        System.out.println("\nUC10 aggregation completed...");
     }
 }
