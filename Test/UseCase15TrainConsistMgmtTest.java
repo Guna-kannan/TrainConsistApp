@@ -1,63 +1,53 @@
 
-import org.junit.jupiter.api.Test;
-import static org.junit.jupiter.api.Assertions.*;
 
-class UseCase15TrainConsistMgmtTest {
+import static org.junit.Assert.*;
+        import org.junit.Test;
+import java.util.Arrays;
 
-    // ---- TEST 1: Safe Assignment ----
+public class UseCase17TrainConsistMgmtTest {
+
     @Test
-    void testCargo_SafeAssignment() {
-        UseCase15TrainConsistMgmt.GoodsBogie bogie =
-                new UseCase15TrainConsistMgmt.GoodsBogie("Cylindrical");
+    public void testSort_BasicAlphabeticalSorting() {
+        String[] input = {"Sleeper","AC Chair","First Class","General","Luxury"};
+        String[] expected = {"AC Chair","First Class","General","Luxury","Sleeper"};
 
-        bogie.assignCargo("Petroleum");
-
-        assertEquals("Petroleum", bogie.cargo);
+        Arrays.sort(input);
+        assertArrayEquals(expected, input);
     }
 
-    // ---- TEST 2: Unsafe Assignment Handled ----
     @Test
-    void testCargo_UnsafeAssignmentHandled() {
-        UseCase15TrainConsistMgmt.GoodsBogie bogie =
-                new UseCase15TrainConsistMgmt.GoodsBogie("Rectangular");
+    public void testSort_UnsortedInput() {
+        String[] input = {"Luxury","General","Sleeper","AC Chair"};
+        String[] expected = {"AC Chair","General","Luxury","Sleeper"};
 
-        // Should NOT throw exception outside (handled internally)
-        assertDoesNotThrow(() -> bogie.assignCargo("Petroleum"));
+        Arrays.sort(input);
+        assertArrayEquals(expected, input);
     }
 
-    // ---- TEST 3: Cargo Not Assigned After Failure ----
     @Test
-    void testCargo_CargoNotAssignedAfterFailure() {
-        UseCase15TrainConsistMgmt.GoodsBogie bogie =
-                new UseCase15TrainConsistMgmt.GoodsBogie("Rectangular");
+    public void testSort_AlreadySortedArray() {
+        String[] input = {"AC Chair","First Class","General"};
+        String[] expected = {"AC Chair","First Class","General"};
 
-        bogie.assignCargo("Petroleum");
-
-        assertNull(bogie.cargo); // cargo should not be assigned
+        Arrays.sort(input);
+        assertArrayEquals(expected, input);
     }
 
-    // ---- TEST 4: Program Continues After Exception ----
     @Test
-    void testCargo_ProgramContinuesAfterException() {
-        UseCase15TrainConsistMgmt.GoodsBogie bogie1 =
-                new UseCase15TrainConsistMgmt.GoodsBogie("Rectangular");
+    public void testSort_DuplicateBogieNames() {
+        String[] input = {"Sleeper","AC Chair","Sleeper","General"};
+        String[] expected = {"AC Chair","General","Sleeper","Sleeper"};
 
-        UseCase15TrainConsistMgmt.GoodsBogie bogie2 =
-                new UseCase15TrainConsistMgmt.GoodsBogie("Cylindrical");
-
-        bogie1.assignCargo("Petroleum"); // unsafe
-        bogie2.assignCargo("Petroleum"); // safe
-
-        assertEquals("Petroleum", bogie2.cargo);
+        Arrays.sort(input);
+        assertArrayEquals(expected, input);
     }
 
-    // ---- TEST 5: Finally Block Execution ----
     @Test
-    void testCargo_FinallyBlockExecution() {
-        UseCase15TrainConsistMgmt.GoodsBogie bogie =
-                new UseCase15TrainConsistMgmt.GoodsBogie("Rectangular");
+    public void testSort_SingleElementArray() {
+        String[] input = {"Sleeper"};
+        String[] expected = {"Sleeper"};
 
-        // Since finally always runs, we just ensure no crash
-        assertDoesNotThrow(() -> bogie.assignCargo("Petroleum"));
+        Arrays.sort(input);
+        assertArrayEquals(expected, input);
     }
 }
